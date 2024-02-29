@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ioevent-cockpit-api
+  labels:
+    app: ioevent-cockpit-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ioevent-cockpit-api
+  template:
+    metadata:
+      labels:
+        app: ioevent-cockpit-api
+    spec:
+      containers:
+      - name: ioevent-cockpit-api
+        image: ioevent/cockpit-api:latest
+        ports:
+        - containerPort: 8761
+        env:
+        - name: ES_URL
+          value: http://elasticsearch-service:9200
+        - name: KAFKA_BOOTSTRAP_SERVER
+          value: my-cluster-kafka-bootstrap:9092
+        - name: KAFKA_GROUP_ID
+          value: ioevent-cockpit-test-strimzi
+        readinessProbe:
+          httpGet:
+            path: /api/ping
+            port: 8761
+          initialDelaySeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /api/ping
+            port: 8761
+          initialDelaySeconds: 60
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ioevent-cockpit-api-service
+spec:
+  selector:
+    app: ioevent-cockpit-api
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8761
+      targetPort: 8761
+      nodePort: 30003
