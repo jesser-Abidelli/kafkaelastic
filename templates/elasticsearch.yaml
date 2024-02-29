@@ -20,6 +20,8 @@ spec:
           value: single-node
         ports:
         - containerPort: 9200
+        - name : ES_JAVA_OPTS
+          value: "-Xms512m -Xmx512m"
 ---
 apiVersion: v1
 kind: Service
