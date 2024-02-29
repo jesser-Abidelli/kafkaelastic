@@ -23,7 +23,7 @@ spec:
         - name: ES_URL
           value: http://elasticsearch-service:9200
         - name: KAFKA_BOOTSTRAP_SERVER
-          value: my-cluster-kafka-bootstrap:9092
+          value: kafka-service:9092
         - name: KAFKA_GROUP_ID
           value: ioevent-cockpit-test-strimzi
         readinessProbe:
