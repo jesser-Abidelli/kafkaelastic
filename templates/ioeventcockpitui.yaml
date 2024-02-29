@@ -19,7 +19,7 @@ spec:
         - containerPort: 3000
         env:
         - name: COCKPit_API_URL
-          value: "http://ioevent-cockpit-api-service:8761/api"
+          value: "http://ioevent-cockpit-api-service:8761/api" 
         - name: COCKPit_UI_REGISTRATION
           value: "true#####"
 
@@ -27,11 +27,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: elasticsearch-service
+  name: ioeventui-service
 spec:
   selector:
-    app: elasticsearch
+    app: ioeventui
   ports:
-    - protocol: TCP
-      port: 9200
-      targetPort: 9200
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
+  type: NodePort

@@ -28,10 +28,9 @@ kind: Service
 metadata:
   name: elasticsearch-service
 spec:
-  type: LoadBalancer
-  ports:
-    - port: 9200
-      targetPort: 9200
   selector:
     app: elasticsearch
-  internal: true
+  ports:
+    - protocol: TCP
+      port: 9200
+      targetPort: 9200
