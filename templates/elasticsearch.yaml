@@ -18,8 +18,13 @@ spec:
         env:
         - name: discovery.type
           value: single-node
-        - name : ES_JAVA_OPTS
-          value: "-Xms250m -Xmx450m"
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1"
+          limits:
+            memory: "4Gi"
+            cpu: "2"
         ports:
         - containerPort: 9200
 ---
