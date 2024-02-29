@@ -28,10 +28,10 @@ kind: Service
 metadata:
   name: elasticsearch-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - port: 9200
       targetPort: 9200
-      nodePort: 30200 
   selector:
     app: elasticsearch
+  internal: true
