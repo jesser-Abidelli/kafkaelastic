@@ -1,9 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app.kubernetes.io/name: kafka-service
   name: kafka-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
 spec:
   ports:
    - name: kafka-port
@@ -22,10 +24,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kafka-service
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
-    service.beta.kubernetes.io/aws-load-balancer-type: external
-    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
 spec:
   replicas: 1
   selector:
@@ -34,7 +32,7 @@ spec:
   template:
     metadata:
       labels:
-        .kubernetes.io/name: kafka-service
+        app.kubernetes.io/name: kafka-service
     spec:
       containers:
       - env:
