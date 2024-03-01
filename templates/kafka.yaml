@@ -36,7 +36,7 @@ spec:
           ports:
             - name: server
               containerPort: 9092
-          env:
+          - env:
             - name: KAFKA_BROKER_ID
               value: "1"
             - name: KAFKA_ZOOKEEPER_CONNECT
