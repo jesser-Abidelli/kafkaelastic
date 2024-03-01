@@ -53,6 +53,13 @@ spec:
         - name: KAFKA_INTER_BROKER_LISTENER_NAME
           value: LISTENER_INTERNAL
         image: wurstmeister/kafka
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1"
+          limits:
+            memory: "4Gi"
+            cpu: "2"
         imagePullPolicy: IfNotPresent
         name: kafka-service
         ports:
